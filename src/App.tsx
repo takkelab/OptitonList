@@ -1,4 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { useEffect } from 'react'
+import { Capacitor } from '@capacitor/core'
+import { StatusBar, Style } from '@capacitor/status-bar'
 import { PendingListPage } from './pages/PendingListPage'
 import { SuggestionsPage } from './pages/SuggestionsPage'
 import { CompletedListPage } from './pages/CompletedListPage'
@@ -7,6 +10,16 @@ import { TabNavigation } from './components/TabNavigation'
 import './App.css'
 
 function App() {
+  useEffect(() => {
+    // ネイティブプラットフォーム（iOS/Android）の場合のみ実行
+    if (Capacitor.isNativePlatform()) {
+      // ステータスバーを明るい背景用に設定
+      StatusBar.setStyle({ style: Style.Light }).catch(() => {
+        // エラーは無視（WebやStatusBarが無効な場合）
+      })
+    }
+  }, [])
+
   return (
     <BrowserRouter>
       <div className="app-container">

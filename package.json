@@ -7,9 +7,18 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "cap:sync": "npm run build && npx cap sync",
+    "cap:sync:ios": "npm run build && npx cap sync ios",
+    "cap:open:ios": "npx cap open ios",
+    "cap:run:ios": "npm run cap:sync:ios && npm run cap:open:ios"
   },
   "dependencies": {
+    "@capacitor/camera": "^8.0.0",
+    "@capacitor/cli": "^8.0.0",
+    "@capacitor/core": "^8.0.0",
+    "@capacitor/ios": "^8.0.0",
+    "@capacitor/status-bar": "^8.0.0",
     "@dnd-kit/core": "^6.3.1",
     "@dnd-kit/sortable": "^10.0.0",
     "@dnd-kit/utilities": "^3.2.2",
