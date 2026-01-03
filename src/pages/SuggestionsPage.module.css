@@ -1,0 +1,223 @@
+.container {
+  height: 100vh;
+  background: linear-gradient(135deg, #426bdccd 0%, #32d3ec 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  padding: 20px;
+  padding-bottom: 100px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+}
+
+.header {
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.title {
+  color: white;
+  font-size: 28px;
+  font-weight: 600;
+  margin: 0;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.subtitle {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 14px;
+  margin-top: 8px;
+}
+
+/* カードコンテナ */
+.cardContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 400px;
+  position: relative;
+  height: 320px;
+  margin: 10px 0 20px 0;
+}
+
+.card {
+  position: absolute;
+  width: 100%;
+  height: 350px;
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 40px;
+  cursor: grab;
+  user-select: none;
+  touch-action: none;
+}
+
+/* 次のカード（下に配置） */
+.nextCard {
+  z-index: 1;
+  cursor: default;
+  filter: brightness(0.95);
+}
+
+.card:not(.nextCard) {
+  z-index: 2;
+}
+
+.card:active {
+  cursor: grabbing;
+}
+
+.cardTitle {
+  font-size: 24px;
+  font-weight: 600;
+  color: #333;
+  text-align: center;
+  line-height: 1.5;
+  margin: 0;
+  white-space: pre-line;
+}
+
+.category {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: linear-gradient(135deg, #426bdccd 0%, #32d3ec 100%);
+  color: white;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+/* ボタン群 */
+.buttonGroup {
+  display: flex;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.actionButton {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 32px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s ease;
+}
+
+.actionButton:hover {
+  transform: scale(1.1);
+}
+
+.actionButton:active {
+  transform: scale(0.95);
+}
+
+.skipButton {
+  background-color: #ff6b6b;
+  color: white;
+}
+
+.addButton {
+  background-color: #51cf66;
+  color: white;
+}
+
+/* 空の状態 */
+.emptyState {
+  text-align: center;
+  color: white;
+  padding: 40px;
+}
+
+.emptyIcon {
+  font-size: 64px;
+  margin-bottom: 20px;
+}
+
+.emptyText {
+  font-size: 18px;
+  margin-bottom: 8px;
+}
+
+.emptySubText {
+  font-size: 14px;
+  opacity: 0.8;
+}
+
+/* スワイプオーバーレイエフェクト */
+.swipeOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.swipeOverlayAdd {
+  background: rgba(81, 207, 102, 0.9);
+}
+
+.swipeOverlaySkip {
+  background: rgba(255, 107, 107, 0.9);
+}
+
+.swipeText {
+  font-size: 48px;
+  font-weight: bold;
+  color: white;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  animation: pulse 0.5s ease infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+/* ローディング */
+.loading {
+  color: white;
+  text-align: center;
+  font-size: 18px;
+  padding: 40px;
+}
