@@ -22,10 +22,21 @@ jobs:
           cache: 'npm'
           
       - name: Install dependencies
-        run: npm install
+        run: |
+          echo "📦 Installing dependencies..."
+          npm install
+          echo "✅ Dependencies installed"
         
+      - name: Check Node and npm versions
+        run: |
+          node --version
+          npm --version
+          
       - name: Build web app
-        run: npm run build
+        run: |
+          echo "🔨 Building web app..."
+          npm run build:ci
+          echo "✅ Build completed"
         
       - name: Sync Capacitor
         run: npx cap sync ios
