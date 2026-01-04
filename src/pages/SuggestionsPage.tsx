@@ -23,7 +23,10 @@ export const SuggestionsPage = () => {
   const [nextSuggestion, setNextSuggestion] = useState<Suggestion | null>(null);
   const [loading, setLoading] = useState(true);
   const { addOption } = useOptions();
-  const isNativeApp = Capacitor.isNativePlatform();
+  // ネイティブアプリまたはPWAモードで動作しているかチェック
+  const isAppMode = Capacitor.isNativePlatform() || 
+                    window.matchMedia('(display-mode: standalone)').matches ||
+                    (window.navigator as any).standalone === true;
 
   // カードアニメーション
   const [{ x, rotate, opacity }, api] = useSpring(() => ({
@@ -223,7 +226,7 @@ export const SuggestionsPage = () => {
   }
 
   return (
-    <div className={`${styles.container} ${isNativeApp ? styles.nativeApp : styles.webApp}`}>
+    <div className={`${styles.container} ${isAppMode ? styles.nativeApp : styles.webApp}`}>
       <div className={styles.header}>
         <h1 className={styles.title}>新しい体験、見つけよう</h1>
         <p className={styles.subtitle}>「やってみたい」と思ったら左にスワイプ！</p>
