@@ -4,9 +4,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-evenly;
-  padding: 20px;
-  padding-bottom: 100px;
   position: fixed;
   top: 0;
   left: 0;
@@ -15,10 +12,36 @@
   overflow: hidden;
 }
 
+/* Web版（URLバー対策で上寄せ） */
+.webApp {
+  justify-content: flex-start;
+  padding: 15px 20px;
+  padding-bottom: 20px;
+}
+
+/* アプリ版（中央配置） */
+.nativeApp {
+  justify-content: space-between;
+  padding: 20px;
+  padding-bottom: 100px;
+}
+
 .header {
   width: 100%;
   max-width: 400px;
   text-align: center;
+  flex-shrink: 0;
+}
+
+/* Web版のヘッダー */
+.webApp .header {
+  margin-top: 50px;
+  margin-bottom: 35px;
+}
+
+/* アプリ版のヘッダー */
+.nativeApp .header {
+  margin-top: 10px;
   margin-bottom: 20px;
 }
 
@@ -32,8 +55,8 @@
 
 .subtitle {
   color: rgba(255, 255, 255, 0.9);
-  font-size: 14px;
-  margin-top: 8px;
+  font-size: 13px;
+  margin-top: 5px;
 }
 
 /* カードコンテナ */
@@ -44,14 +67,26 @@
   width: 100%;
   max-width: 400px;
   position: relative;
-  height: 320px;
-  margin: 10px 0 20px 0;
+  height: 270px;
+  flex-shrink: 0;
+  flex-grow: 0;
+  margin: 0;
+}
+
+/* Web版のカード間隔 */
+.webApp .cardContainer {
+  margin-bottom: 40px;
+}
+
+/* アプリ版のカード間隔 */
+.nativeApp .cardContainer {
+  margin-bottom: 0;
 }
 
 .card {
   position: absolute;
   width: 100%;
-  height: 350px;
+  height: 290px;
   background: white;
   border-radius: 20px;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
@@ -59,7 +94,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 40px 40px;
+  padding: 28px 28px;
   cursor: grab;
   user-select: none;
   touch-action: none;
@@ -81,24 +116,24 @@
 }
 
 .cardTitle {
-  font-size: 24px;
+  font-size: 21px;
   font-weight: 600;
   color: #333;
   text-align: center;
-  line-height: 1.5;
+  line-height: 1.4;
   margin: 0;
   white-space: pre-line;
 }
 
 .category {
   position: absolute;
-  top: 20px;
-  right: 20px;
+  top: 15px;
+  right: 15px;
   background: linear-gradient(135deg, #426bdccd 0%, #32d3ec 100%);
   color: white;
-  padding: 6px 12px;
-  border-radius: 20px;
-  font-size: 12px;
+  padding: 5px 10px;
+  border-radius: 15px;
+  font-size: 11px;
   font-weight: 500;
 }
 
@@ -106,19 +141,20 @@
 .buttonGroup {
   display: flex;
   gap: 20px;
-  margin-top: 20px;
+  margin-bottom: 5px;
+  flex-shrink: 0;
 }
 
 .actionButton {
-  width: 70px;
-  height: 70px;
+  width: 62px;
+  height: 62px;
   border-radius: 50%;
   border: none;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  font-size: 32px;
+  font-size: 29px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   transition: all 0.2s ease;
 }

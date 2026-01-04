@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useSwipeable } from 'react-swipeable';
 import { useSpring, animated } from '@react-spring/web';
+import { Capacitor } from '@capacitor/core';
 import { useOptions } from '../hooks/useOptions';
 import type { Option } from '../types';
 import styles from './SuggestionsPage.module.css';
@@ -17,6 +18,7 @@ export const SuggestionsPage = () => {
   const [nextSuggestion, setNextSuggestion] = useState<Suggestion | null>(null);
   const [loading, setLoading] = useState(true);
   const { addOption } = useOptions();
+  const isNativeApp = Capacitor.isNativePlatform();
 
   // カードアニメーション
   const [{ x, rotate, opacity }, api] = useSpring(() => ({
@@ -216,7 +218,7 @@ export const SuggestionsPage = () => {
   }
 
   return (
-    <div className={styles.container}>
+    <div className={`${styles.container} ${isNativeApp ? styles.nativeApp : styles.webApp}`}>
       <div className={styles.header}>
         <h1 className={styles.title}>新しい体験、見つけよう</h1>
         <p className={styles.subtitle}>「やってみたい」と思ったら左にスワイプ！</p>
