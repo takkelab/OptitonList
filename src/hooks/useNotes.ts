@@ -2,6 +2,11 @@ import { useState, useEffect } from 'react';
 import type { Note } from '../types';
 import { STORAGE_KEYS } from '../types';
 
+// UUID生成関数（crypto.randomUUIDの代替）
+const generateId = (): string => {
+  return `${Date.now()}-${Math.random().toString(36).substring(2, 9)}`;
+};
+
 export const useNotes = (optionId: string) => {
   const [notes, setNotes] = useState<Note[]>([]);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -50,7 +55,7 @@ export const useNotes = (optionId: string) => {
     }
 
     const note: Note = {
-      id: crypto.randomUUID(),
+      id: generateId(),
       option_id: optionId,
       ...newNote,
       created_at: new Date().toISOString(),

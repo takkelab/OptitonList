@@ -36,7 +36,11 @@ export const OptionDetailPage = () => {
 
   // メッセージ追加時に最下部へスクロール
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    messagesEndRef.current?.scrollIntoView({ 
+      behavior: 'smooth',
+      block: 'end',
+      inline: 'nearest'
+    });
   }, [notes]);
 
   const handleSubmit = () => {
@@ -216,6 +220,31 @@ export const OptionDetailPage = () => {
     return `${year}年${month}月${day}日 ${hours}:${minutes}`;
   };
 
+  // テキスト内のURLをリンクに変換する関数
+  const linkifyText = (text: string) => {
+    // URLの正規表現パターン
+    const urlPattern = /(https?:\/\/[^\s]+)/g;
+    const parts = text.split(urlPattern);
+    
+    return parts.map((part, index) => {
+      if (part.match(urlPattern)) {
+        return (
+          <a
+            key={index}
+            href={part}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.messageLink}
+            onClick={(e) => e.stopPropagation()}
+          >
+            {part}
+          </a>
+        );
+      }
+      return <span key={index}>{part}</span>;
+    });
+  };
+
   const generateCertificate = () => {
     if (!option) return '';
 
@@ -302,7 +331,9 @@ export const OptionDetailPage = () => {
               onTouchEnd={handleLongPressEnd}
             >
               {note.content && (
-                <p className={styles.messageContent}>{note.content}</p>
+                <p className={styles.messageContent}>
+                  {linkifyText(note.content)}
+                </p>
               )}
               {note.image_data && (
                 <img

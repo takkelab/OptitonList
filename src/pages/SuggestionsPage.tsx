@@ -6,6 +6,11 @@ import { useOptions } from '../hooks/useOptions';
 import type { Option } from '../types';
 import styles from './SuggestionsPage.module.css';
 
+// UUID生成関数（crypto.randomUUIDの代替）
+const generateId = (): string => {
+  return `${Date.now()}-${Math.random().toString(36).substring(2, 9)}`;
+};
+
 interface Suggestion {
   id: number;
   title: string;
@@ -128,7 +133,7 @@ export const SuggestionsPage = () => {
     setTimeout(() => {
       // やりたいリストに追加（アニメーション後に実行）
       const newOption: Option = {
-        id: crypto.randomUUID(),
+        id: generateId(),
         title: currentSuggestion.title,
         status: 'pending',
         source: 'ai',

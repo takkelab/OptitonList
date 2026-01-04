@@ -2,6 +2,11 @@ import { useState, useEffect } from 'react';
 import type { Option } from '../types';
 import { STORAGE_KEYS } from '../types';
 
+// UUID生成関数（crypto.randomUUIDの代替）
+const generateId = (): string => {
+  return `${Date.now()}-${Math.random().toString(36).substring(2, 9)}`;
+};
+
 export const useOptions = () => {
   const [options, setOptions] = useState<Option[]>([]);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -35,12 +40,17 @@ export const useOptions = () => {
   // オプションを追加
   const addOption = (newOption: Omit<Option, 'id' | 'created_at' | 'order'>) => {
     const option: Option = {
-      id: crypto.randomUUID(),
+      id: generateId(),
       ...newOption,
       order: options.length,
       created_at: new Date().toISOString(),
     };
-    setOptions(prev => [...prev, option]);
+    console.log('useOptions - Adding option:', option);
+    setOptions(prev => {
+      const updated = [...prev, option];
+      console.log('useOptions - Updated options:', updated);
+      return updated;
+    });
   };
 
   // オプションを更新

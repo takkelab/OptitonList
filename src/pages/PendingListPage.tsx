@@ -34,7 +34,6 @@ const SortableCard = ({ option, onClick }: { option: Option; onClick: () => void
     transform: CSS.Transform.toString(transform),
     transition,
     opacity: isDragging ? 0.5 : 1,
-    touchAction: 'none' as const,
   }
 
   const handleClick = () => {
@@ -73,10 +72,10 @@ export const PendingListPage = () => {
       },
     }),
     useSensor(TouchSensor, {
-      // モバイルタッチ: 長押しでドラッグ開始
+      // モバイルタッチ: 長押しでドラッグ開始、垂直スクロールを優先
       activationConstraint: {
-        delay: 250,
-        tolerance: 5,
+        delay: 500, // 500msの長押しでドラッグモード
+        tolerance: 8, // 8px以内の動きは許容
       },
     })
   )
@@ -96,12 +95,14 @@ export const PendingListPage = () => {
       return
     }
 
+    console.log('Adding new option:', newTitle.trim());
     addOption({
       title: newTitle.trim(),
       status: 'pending',
       source: 'user',
       completed_at: null,
     })
+    console.log('Option added');
 
     setNewTitle('')
     setIsModalOpen(false)
