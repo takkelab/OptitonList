@@ -21,9 +21,10 @@
 
 /* アプリ版（中央配置） */
 .nativeApp {
-  justify-content: space-between;
+  justify-content: center;
   padding: 20px;
   padding-bottom: 100px;
+  gap: 40px;
 }
 
 .header {
@@ -41,8 +42,8 @@
 
 /* アプリ版のヘッダー */
 .nativeApp .header {
-  margin-top: 10px;
-  margin-bottom: 20px;
+  margin-top: 0;
+  margin-bottom: 0;
 }
 
 .title {
@@ -141,7 +142,7 @@
 .buttonGroup {
   display: flex;
   gap: 20px;
-  margin-bottom: 5px;
+  margin-bottom: 0;
   flex-shrink: 0;
 }
 
