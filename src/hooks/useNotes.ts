@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import type { Note } from '../types';
 import { STORAGE_KEYS } from '../types';
+import { safeGetItem, safeSetItem } from '../utils/storage';
 
 // UUID生成関数（crypto.randomUUIDの代替）
 const generateId = (): string => {
@@ -14,7 +15,7 @@ export const useNotes = (optionId: string) => {
   // 初回読み込み（全Notesから該当optionIdのものをフィルタ）
   useEffect(() => {
     try {
-      const stored = localStorage.getItem(STORAGE_KEYS.NOTES);
+      const stored = safeGetItem(STORAGE_KEYS.NOTES);
       if (stored) {
         const allNotes: Note[] = JSON.parse(stored);
         const filteredNotes = allNotes.filter(note => note.option_id === optionId);
@@ -32,14 +33,14 @@ export const useNotes = (optionId: string) => {
     if (isLoaded) {
       try {
         // 全Notesを読み込み
-        const stored = localStorage.getItem(STORAGE_KEYS.NOTES);
+        const stored = safeGetItem(STORAGE_KEYS.NOTES);
         const allNotes: Note[] = stored ? JSON.parse(stored) : [];
         
         // 他のoptionのNotesを保持しつつ、現在のoptionのNotesを更新
         const otherNotes = allNotes.filter(note => note.option_id !== optionId);
         const updatedNotes = [...otherNotes, ...notes];
         
-        localStorage.setItem(STORAGE_KEYS.NOTES, JSON.stringify(updatedNotes));
+        safeSetItem(STORAGE_KEYS.NOTES, JSON.stringify(updatedNotes));
       } catch (error) {
         console.error('Failed to save notes to localStorage:', error);
       }

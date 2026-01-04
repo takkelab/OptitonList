@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import type { Option } from '../types';
 import { STORAGE_KEYS } from '../types';
+import { safeGetItem, safeSetItem, isPWAMode, checkStorageHealth } from '../utils/storage';
 
 // UUID生成関数（crypto.randomUUIDの代替）
 const generateId = (): string => {
@@ -13,11 +14,17 @@ export const useOptions = () => {
 
   // 初回読み込み
   useEffect(() => {
+    console.log('useOptions - Loading from localStorage...');
+    console.log('useOptions - Running as PWA:', isPWAMode());
+    console.log('useOptions - Storage health:', checkStorageHealth());
     try {
-      const stored = localStorage.getItem(STORAGE_KEYS.OPTIONS);
+      const stored = safeGetItem(STORAGE_KEYS.OPTIONS);
       if (stored) {
         const parsed = JSON.parse(stored);
+        console.log('useOptions - Parsed options:', parsed);
         setOptions(parsed);
+      } else {
+        console.log('useOptions - No stored data found');
       }
     } catch (error) {
       console.error('Failed to load options from localStorage:', error);
@@ -29,8 +36,14 @@ export const useOptions = () => {
   // 変更時に自動保存
   useEffect(() => {
     if (isLoaded) {
+      console.log('useOptions - Saving to localStorage:', options);
       try {
-        localStorage.setItem(STORAGE_KEYS.OPTIONS, JSON.stringify(options));
+        const success = safeSetItem(STORAGE_KEYS.OPTIONS, JSON.stringify(options));
+        if (success) {
+          console.log('useOptions - Save successful');
+        } else {
+          console.error('useOptions - Save failed verification');
+        }
       } catch (error) {
         console.error('Failed to save options to localStorage:', error);
       }
