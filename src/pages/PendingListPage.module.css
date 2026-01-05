@@ -80,7 +80,7 @@
 .card {
   background-color: #ffffff;
   border-radius: 12px;
-  padding: 20px 80px 20px 20px;
+  padding: 20px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   cursor: pointer;
   transition: all 0.2s ease;
@@ -102,6 +102,8 @@
   font-weight: 500;
   color: #333;
   line-height: 1.5;
+  word-break: break-word;
+  overflow-wrap: break-word;
 }
 
 /* モーダル */
